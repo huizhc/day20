@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="background: url(./erik_ce204002.jpg); width: 480px; height: 480px"></div>
+    <script>
+        let idiv = document.querySelector("div");
+        // console.log(idiv);
+        idiv.style.backgroundPosition = "0px 0px";
+        idiv.direction = "top";
+        setInterval(function () {
+            let bg = idiv.style.backgroundPosition;
+            // console.log("bg= " + bg);
+            let bgTop = parseInt(bg.split(' ')[1]); //8160
+            if (idiv.direction == "top") {
+                bgTop -= 480;
+                if (bgTop <= -8160) {
+                    idiv.direction = "down";
+                }
+            }
+            if (idiv.direction == "down") {
+                bgTop += 480;
+                if (bgTop >= 0) {
+                    idiv.direction = "top";
+                }
+            }
+            idiv.style.backgroundPosition = "0px "+bgTop+"px";
+        }, 100);
+    </script>
+</body>
+</html>

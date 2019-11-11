@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+    <button id="fade-btn">淡出</button>
+    <script>
+        let fadeObj = document.querySelector("#fade-obj");
+        let fadeBtn = document.querySelector("#fade-btn");
+        fadeObj.style.opacity = 1;
+        fadeBtn.addEventListener("click", function (e) {
+            e.target.disabled = "true";
+            if (fadeBtn.textContent === '淡出') {
+                let _fadeOpc = function (_e) {
+                    return function () {
+                        let fadeOpc = fadeObj.style.opacity;
+                        fadeOpc = (fadeOpc * 100 - 1) / 100;
+                        fadeObj.style.opacity = fadeOpc;
+                        if (fadeObj.style.opacity <= 0) {
+                            clearInterval(fadeItv);
+                            fadeBtn.textContent = "淡入";
+                            e.target.disabled = "";
+                            // console.log(e.target.disabled);
+                        }
+                    }
+                }
+                let fadeItv = setInterval(_fadeOpc(e), 30);
+            } else {
+                let _fadeOpc = function (_e) {
+                    return function () {
+                        let fadeOpc = fadeObj.style.opacity;
+                        fadeOpc = (fadeOpc * 100 + 1) / 100;
+                        fadeObj.style.opacity = fadeOpc;
+                        if (fadeObj.style.opacity >= 1) {
+                            clearInterval(fadeItv);
+                            fadeBtn.textContent = "淡出";
+                            e.target.disabled = "";
+                            // console.log(e.target.disabled);
+                        }
+                    }
+                }
+                let fadeItv = setInterval(_fadeOpc(e), 30);
+            }
+        })
+    </script>
+</body>
+</html>
